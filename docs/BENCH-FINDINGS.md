@@ -69,14 +69,19 @@ benchmarks will 402 until credits are added — provider-side, not a harness bug
 
 ## Herd corrected-ID reruns (2026-09-20)
 
-Dash-form IDs (`-iq4xs`, `-q4km`) after the colon-form 404s:
+Dash-form IDs (`-iq4xs`, `-q4km`) after the colon-form 404s. Full table:
 
-- iq4xs: 43/7/0/50, 173.2 s, TTFT 304.58/73.60 ms, ITL 6.93/3.09 ms,
-  127.08/39.47 out tok/s, 7 × HTTP 502
-- q4km: 44/6/0/50, 91.0 s, TTFT 98.66/88.97 ms, ITL 3.71/3.29 ms,
-  247.47/299.64 out tok/s, 6 × HTTP 502
+| Model | ok/err/inc/total | dur_s | TTFT mean/p50 ms | ITL mean/p50 ms | out tok/s mean/p50 | errors |
+|---|---|---|---|---|---|---|
+| beellama/exaone-4-0-1-2b-iq4xs | 43/7/0/50 | 173.2 | 304.58/73.60 | 6.93/3.09 | 127.08/39.47 | 7 × HTTP 502 |
+| beellama/exaone-4-0-1-2b-q4km | 44/6/0/50 | 91.0 | 98.66/88.97 | 3.71/3.29 | 247.47/299.64 | 6 × HTTP 502 |
+| beellama/exaone-4-0-1-2b-q5km | 33/10/0/43 | 371.6 | 36.37/4.66 | 21.96/12.28 | 45.46/19.23 | 10 × ConnectError |
+| beellama/exaone-4-0-1-2b-q6k | 36/10/0/46 [lists: 36/10/1] | 144.7 | 80.70/83.26 | 4.26/3.41 | 127.38/37.57 | 6 × ConnectError, 3 × UNUSABLE_BACKEND_RESPONSE |
+| beellama/exaone-4-0-1-2b-q80 | 49/1/0/50 | 627.8 | 74.66/79.44 | 16.23/3.66 | 39.96/1.67 | 1 × empty response payload |
 
-The 502s are server-side (herd router backend), not request errors.
+The 502s are server-side (herd router backend), not request errors. The
+ConnectErrors on q5km/q6k are router connection drops mid-run (their totals
+only reached 43/46) — infrastructure flakes, not model verdicts.
 
 ## OpenRouter free-tier reruns (2026-09-20)
 
