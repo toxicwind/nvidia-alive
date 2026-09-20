@@ -143,7 +143,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-8B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",
@@ -151,7 +154,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-8B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",
@@ -159,7 +165,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-3B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",
@@ -167,7 +176,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-3B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",
@@ -175,7 +187,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-14B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",
@@ -183,7 +198,10 @@
       "provider": "mistral",
       "tokenizer": "mistralai/Ministral-3-14B-Instruct-2512",
       "tokenizer_note": "Actual 2512 repo (ungated, tokenizer.json verified 2026-09-20); 2410 repos are gated and the stored HF token is expired.",
-      "tokenizer_verified": true
+      "tokenizer_verified": true,
+      "tokenizer_load_kwargs": {
+        "fix_mistral_regex": true
+      }
     },
     {
       "class": "general-chat",

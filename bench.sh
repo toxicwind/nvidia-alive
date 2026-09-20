@@ -66,13 +66,17 @@ command -v python3 >/dev/null || { echo "python3 required" >&2; exit 2; }
 # models-bench.json and context-map.json when it lands).
 python3 "$DIR/scripts/gen-scenarios.py" >&2 || exit 2
 
-# Emit: provider\x1fmodel_id\x1ftokenizer\x1fverified(0/1)\x1fkey_env\x1ftarget\x1fvalidate\x1frequest_path\x1fstrict_compat(0/1)
+# Emit: provider\x1fmodel_id\x1ftokenizer\x1fverified(0/1)\x1fkey_env\x1ftarget\x1fvalidate\x1frequest_path\x1fstrict_compat(0/1)\x1ftokenizer_load_kwargs(pairs)
 model_rows() {
   python3 - "$MODELS_JSON" <<'EOF'
 import json, sys
 bench = json.load(open(sys.argv[1]))
+def yaml_bool(v):
+    return "true" if v is True else "false" if v is False else str(v)
 for m in bench["models"]:
     p = bench["providers"][m["provider"]]
+    tlk = m.get("tokenizer_load_kwargs") or {}
+    pairs = ",".join(f"load_kwargs.{k}={yaml_bool(v)}" for k, v in tlk.items())
     print("\x1f".join([
         m["provider"], m["id"],
         m.get("tokenizer") or "",
@@ -82,6 +86,7 @@ for m in bench["models"]:
         p.get("validate") or "",
         p.get("request_path") or "/v1/chat/completions",
         "1" if p.get("strict_compat") else "0",
+        pairs,
     ]))
 EOF
 }
@@ -90,7 +95,7 @@ selected=0; ran=0; failed=0; skipped_key=0; skipped_tok=0
 # NOTE: \x1f (unit separator) is the field delimiter, NOT tab: tab is IFS
 # whitespace, so read would collapse consecutive tabs and swallow empty
 # fields (this silently broke keyless providers like herd).
-while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env target validate request_path strict_compat; do
+while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env target validate request_path strict_compat tok_load_kwargs; do
   [ -z "$model" ] && continue
   if [ -n "$PROVIDER" ] && [ "$provider" != "$PROVIDER" ]; then continue; fi
   if [ -n "$FILTER" ]; then
@@ -134,6 +139,10 @@ while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env t
     echo "SKIP (scenario missing): $model" >&2; failed=$((failed + 1)); continue
   fi
 
+  tokenizer_spec="kind=huggingface_auto,model=$tokenizer"
+  if [ -n "$tok_load_kwargs" ]; then
+    tokenizer_spec="$tokenizer_spec,$tok_load_kwargs"
+  fi
   backend="kind=openai_http,target=$target,model=$model,request_format=$request_path"
   if [ "$strict_compat" = "1" ]; then
     backend="$backend,openai_strict_compat=true"
@@ -146,7 +155,7 @@ while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env t
   fi
   cmd=(guidellm run --config "$scen"
     --backend "$backend"
-    --tokenizer "kind=huggingface_auto,model=$tokenizer"
+    --tokenizer "$tokenizer_spec"
     --output "kind=json,path=$OUT/${provider}__${safe}.json"
     --disable-console-interactive)
 

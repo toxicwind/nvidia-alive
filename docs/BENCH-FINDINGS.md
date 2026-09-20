@@ -83,6 +83,19 @@ The 502s are server-side (herd router backend), not request errors.
 `nex-agi/nex-n2.5-mini:free`: 2 successful, 10 × HTTP 429 — free-tier rate
 limiting, not a harness bug. The 2 successes prove the request body is valid.
 
+## Tokenizer load_kwargs (fix_mistral_regex)
+
+The Ministral tokenizer warned that `fix_mistral_regex=True` should be used.
+Verified against transformers 5.17.0: the flag only affects
+`MistralCommonBackend` (Tekken) loads; `mistral_common` is not installed in
+the benchmark venv so all loads resolve to `TokenizersBackend` and the flag
+is benign — all 5 `mistralai/*` tokenizers load fine with or without it.
+`bench.sh` passes per-model `tokenizer_load_kwargs` from `models-bench.json`
+through GuideLLM's dot-notation arg string
+(`load_kwargs.fix_mistral_regex=true`); the 6 Ministral entries set it.
+End-to-end verified: arg string → schema validation → registry → tokenizer
+load. Tests: `scripts/tests/test_bench_sh.py`.
+
 ## Metric extractor
 
 `scripts/extract-metrics.py` reads nested GuideLLM JSON and emits Markdown,
