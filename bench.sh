@@ -12,7 +12,7 @@
 # --include-provisional is given.
 #
 # Usage:
-#   ./bench.sh [--all] [--list] [--dry-run] [--include-provisional]
+#   ./bench.sh [--all] [--list] [--dry-run] [--include-provisional] [--long]
 #              [--provider nvidia|mistral|gemini|openrouter|herd] [filter]
 #
 #   no args            same as --all
@@ -22,6 +22,9 @@
 #                      (does not require provider API keys)
 #   --include-provisional
 #                      also run models with provisional/unverified tokenizers
+#   --long             use the long-context scenario variant (8k prompt /
+#                      1k output) where one was generated (models with
+#                      effective context >= 128k)
 #   --provider P       only models on provider P
 #   filter             only models whose id contains the substring
 #
@@ -35,7 +38,7 @@ MODELS_JSON="$BENCH_DIR/models-bench.json"
 SCEN_DIR="$BENCH_DIR/scenarios"
 OUT="${OUT:-$HOME/.local/share/nvidia-alive/bench}"
 
-ALL=0; LIST=0; DRYRUN=0; PROV=0; PROVIDER=""; FILTER=""
+ALL=0; LIST=0; DRYRUN=0; PROV=0; LONG=0; PROVIDER=""; FILTER=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -43,6 +46,7 @@ while [ $# -gt 0 ]; do
     --list) LIST=1 ;;
     --dry-run) DRYRUN=1 ;;
     --include-provisional) PROV=1 ;;
+    --long) LONG=1 ;;
     --provider) PROVIDER="${2:-}"; shift ;;
     --provider=*) PROVIDER="${1#--provider=}" ;;
     -h|--help) sed -n '2,30p' "$0"; exit 0 ;;
@@ -62,14 +66,14 @@ command -v python3 >/dev/null || { echo "python3 required" >&2; exit 2; }
 # models-bench.json and context-map.json when it lands).
 python3 "$DIR/scripts/gen-scenarios.py" >&2 || exit 2
 
-# Emit: provider<TAB>model_id<TAB>tokenizer<TAB>verified(0/1)<TAB>key_env<TAB>target
+# Emit: provider\x1fmodel_id\x1ftokenizer\x1fverified(0/1)\x1fkey_env\x1ftarget
 model_rows() {
   python3 - "$MODELS_JSON" <<'EOF'
 import json, sys
 bench = json.load(open(sys.argv[1]))
 for m in bench["models"]:
     p = bench["providers"][m["provider"]]
-    print("\t".join([
+    print("\x1f".join([
         m["provider"], m["id"],
         m.get("tokenizer") or "",
         "1" if m.get("tokenizer_verified") else "0",
@@ -80,7 +84,10 @@ EOF
 }
 
 selected=0; ran=0; failed=0; skipped_key=0; skipped_tok=0
-while IFS="$(printf '\t')" read -r provider model tokenizer verified key_env target; do
+# NOTE: \x1f (unit separator) is the field delimiter, NOT tab: tab is IFS
+# whitespace, so read would collapse consecutive tabs and swallow empty
+# fields (this silently broke keyless providers like herd).
+while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env target; do
   [ -z "$model" ] && continue
   if [ -n "$PROVIDER" ] && [ "$provider" != "$PROVIDER" ]; then continue; fi
   if [ -n "$FILTER" ]; then
@@ -110,7 +117,15 @@ while IFS="$(printf '\t')" read -r provider model tokenizer verified key_env tar
   fi
 
   _slug="${model//\//__}"; _slug="${_slug//:/__}"
-  scen="$SCEN_DIR/${_slug}.json"
+  if [ "$LONG" -eq 1 ]; then
+    scen="$SCEN_DIR/${_slug}-long.json"
+    if [ ! -f "$scen" ]; then
+      echo "SKIP (no long-context variant): $model"
+      continue
+    fi
+  else
+    scen="$SCEN_DIR/${_slug}.json"
+  fi
   safe="$_slug"
   if [ ! -f "$scen" ]; then
     echo "SKIP (scenario missing): $model" >&2; failed=$((failed + 1)); continue
