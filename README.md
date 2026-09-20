@@ -83,3 +83,13 @@ python3 scripts/nim_stream.py  # maximal SSE probe of one NIM model
 No secrets are stored in this repo — the pre-push scan (`grep` for
 key-shaped assignments) is clean. Anything under `results/` is local
 evidence; the raw full-sweep JSONL lives alongside the sweep runner.
+
+---
+## Estate docs
+
+- **Fleet knowledgebase** — the canonical estate map, active crews, repo index,
+  standing rules, and docs index (source of truth; this README does not
+  duplicate it):
+  <https://github.com/toxicwind/sovereign-projects/blob/main/docs/fleet-knowledgebase.md>
+- **Master README** — the doc-graph root:
+  <https://github.com/toxicwind/sovereign-projects/blob/main/README.md>
