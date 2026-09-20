@@ -18,3 +18,13 @@ request to a real completions endpoint** returned a verdict of `alive`
 Not here: quota-gated, auth-gated, entitlement-gated (kimi-k2.6), retired,
 dead, or flaky verdicts. See `scripts/prober.py` for the verdict taxonomy
 and `docs/FINDINGS.md` for what the edge cases mean.
+
+---
+## Estate docs
+
+- **Fleet knowledgebase** — the canonical estate map, active crews, repo index,
+  standing rules, and docs index (source of truth; this README does not
+  duplicate it):
+  <https://github.com/toxicwind/sovereign-projects/blob/main/docs/fleet-knowledgebase.md>
+- **Master README** — the doc-graph root:
+  <https://github.com/toxicwind/sovereign-projects/blob/main/README.md>
