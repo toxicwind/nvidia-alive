@@ -1,0 +1,47 @@
+{
+  "benchmarks": [
+    {}
+  ],
+  "metadata": {
+    "name": "general-chat-ministral-8b-2512",
+    "description": "General-chat benchmark: ministral-8b-2512 on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "model": "ministral-8b-2512",
+    "provider": "mistral",
+    "max_context": null,
+    "prompt_tokens": 1024,
+    "output_tokens": 512,
+    "tokenizer": "mistralai/Ministral-8B-Instruct-2410",
+    "tokenizer_verified": false
+  },
+  "spec": {
+    "backend": {
+      "kind": "openai_http",
+      "target": "https://api.mistral.ai",
+      "request_format": "/v1/chat/completions"
+    },
+    "data": [
+      {
+        "kind": "synthetic_text",
+        "prompt_tokens": 1024,
+        "output_tokens": 512
+      }
+    ],
+    "profile": {
+      "kind": "synchronous"
+    },
+    "constraints": [
+      {
+        "kind": "max_requests",
+        "count": 50
+      },
+      {
+        "kind": "max_duration",
+        "seconds": 1800
+      },
+      {
+        "kind": "max_errors",
+        "count": 10
+      }
+    ]
+  }
+}
