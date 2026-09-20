@@ -29,6 +29,16 @@ Observed: old colon-form Herd q4km had `request_totals.errored = 10` but
 `len(requests.errored) = 11` (10 HTTP errors + 1 cancelled). The extractor
 (`scripts/extract-metrics.py`) reports both — never silently pick one.
 
+## Run 2: all 24 failed post-tokenizer
+
+`/tmp/bench-all2.log` final: `ran=0 failed=24 skipped_no_key=0
+skipped_tokenizer=0`. Common signature: backend validation passed and
+"Tokenizer resolved" printed, then every run FAILED at request time —
+herd's colon-form IDs (routing 404s), Mistral (422 payload), Gemini (400
+URL), OpenRouter free-tier models. Tokenizer resolution was never the
+problem; the failures were all request-shape/routing/account issues,
+each root-caused separately above.
+
 ## The 15 original no-JSON failures
 
 Startup failures, all the same cause: `validate_backend` defaulted to
