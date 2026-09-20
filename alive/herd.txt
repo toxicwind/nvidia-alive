@@ -1,0 +1,5 @@
+beellama/exaone-4-0-1-2b:iq4xs
+beellama/exaone-4-0-1-2b:q4km
+beellama/exaone-4-0-1-2b:q5km
+beellama/exaone-4-0-1-2b:q6k
+beellama/exaone-4-0-1-2b:q80
