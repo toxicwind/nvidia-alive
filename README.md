@@ -30,8 +30,16 @@ sent to a real completions endpoint, never from a catalog listing.
 - `scripts/kimi-live-probe.py`, `scripts/kimi-k3-reprobe.py`,
   `scripts/kimi-provider-audit.py`, `scripts/provider-audit.py` —
   earlier per-provider audit passes.
-- `bench.sh`, `scenario-smoke.json` — GuideLLM sweep over the alive list
-  (needs `NVIDIA_API_KEY` in env and `models-alive.txt` from `prober.py`).
+- `bench.sh`, `scenario-smoke.json` — GuideLLM sweep over the alive list.
+  Data-driven: `bench/models-bench.json` (general-chat model set, provider
+  backends, NIM-ID → HF tokenizer map — the explicit `--tokenizer` that
+  fixed the smoke-test failure), `bench/tokenizer-map.json` (sourced
+  tokenizer provenance), `bench/scenarios/` (per-model scenarios generated
+  by `scripts/gen-scenarios.py` from the model set + `context-map.json`).
+  `./bench.sh --all` runs every verified-tokenizer model unattended;
+  `--dry-run`, `--list`, `--provider`, `--long` (8k/1k long-context
+  variant), `--include-provisional` also available. kimi-k3 is excluded
+  (capacity-starved — see `alive/queue-gated.txt`).
 
 ## Solved findings
 
@@ -55,6 +63,9 @@ See [`docs/FINDINGS.md`](docs/FINDINGS.md):
 
 ```
 ├── bench.sh, scenario-smoke.json   # GuideLLM benchmark entry points
+├── bench/                          # models-bench.json, tokenizer-map.json,
+│                                   # generated per-model scenarios/
+├── context-map.json                # per-model max context (ctx-mapper)
 ├── scripts/                        # all probers, clients, fuzzers
 ├── docs/                           # FINDINGS.md, audit plan, kimi research
 ├── results/                        # local evidence (k3 timing JSONL)

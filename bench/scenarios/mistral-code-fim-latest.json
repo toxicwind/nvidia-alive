@@ -17,7 +17,7 @@
     "context_source": null,
     "context_note": "No published context window found for the FIM variant; same family as mistral-code-latest (256k) but unstated. Do not size prompts against it until verified.",
     "tokenizer": "mistralai/Codestral-22B-v0.1",
-    "tokenizer_verified": false
+    "tokenizer_verified": true
   },
   "spec": {
     "backend": {

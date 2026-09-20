@@ -3,20 +3,20 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-nex-agi__nex-n2.5-pro__free",
-    "description": "General-chat benchmark (standard): nex-agi/nex-n2.5-pro:free on openrouter (1024 prompt / 512 output tokens, synchronous, 50 requests).",
-    "model": "nex-agi/nex-n2.5-pro:free",
+    "name": "general-chat-nvidia__nemotron-3.5-lightning__free-long",
+    "description": "General-chat benchmark (long): nvidia/nemotron-3.5-lightning:free on openrouter (8192 prompt / 1024 output tokens, synchronous, 50 requests).",
+    "model": "nvidia/nemotron-3.5-lightning:free",
     "provider": "openrouter",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
+    "variant": "long",
+    "prompt_tokens": 8192,
+    "output_tokens": 1024,
     "tokens_scaled_to_context": false,
-    "max_context_advertised": 262144,
-    "context_effective": 262144,
+    "max_context_advertised": 1000000,
+    "context_effective": 1000000,
     "context_provisional": false,
     "context_source": "https://openrouter.ai/api/v1/models",
-    "context_note": null,
-    "tokenizer": "nex-agi/Nex-N2.5-Pro",
+    "context_note": "OpenRouter serving config caps at 1000000.",
+    "tokenizer": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
     "tokenizer_verified": true
   },
   "spec": {
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 8192,
+        "output_tokens": 1024
       }
     ],
     "profile": {

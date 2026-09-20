@@ -17,7 +17,7 @@
     "context_source": "https://freellmapi.co/model/mistral-code ('mistral-code-latest | Context window 256K tokens')",
     "context_note": "Third-party source (not Mistral docs). Treat as provisional until Mistral documents it.",
     "tokenizer": "mistralai/Codestral-22B-v0.1",
-    "tokenizer_verified": false
+    "tokenizer_verified": true
   },
   "spec": {
     "backend": {

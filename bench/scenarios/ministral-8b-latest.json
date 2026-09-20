@@ -16,8 +16,8 @@
     "context_provisional": true,
     "context_source": "inferred from mistralai/ministral-8b-2512 (OpenRouter 262144)",
     "context_note": "-latest alias; assumed to track ministral-8b-2512. Re-verify when pinning.",
-    "tokenizer": "mistralai/Ministral-8B-Instruct-2410",
-    "tokenizer_verified": false
+    "tokenizer": "mistralai/Ministral-3-8B-Instruct-2512",
+    "tokenizer_verified": true
   },
   "spec": {
     "backend": {

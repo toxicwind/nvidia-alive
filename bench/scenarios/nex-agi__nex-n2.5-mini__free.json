@@ -16,7 +16,7 @@
     "context_provisional": false,
     "context_source": "https://openrouter.ai/api/v1/models",
     "context_note": null,
-    "tokenizer": "nex-agi/Nex-n2.5-mini",
+    "tokenizer": "nex-agi/Nex-N2.5-mini",
     "tokenizer_verified": true
   },
   "spec": {
