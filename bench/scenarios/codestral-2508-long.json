@@ -3,14 +3,14 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-codestral-2508",
-    "description": "General-chat benchmark (standard): codestral-2508 on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "name": "general-chat-codestral-2508-long",
+    "description": "General-chat benchmark (long): codestral-2508 on mistral (5824 prompt / 728 output tokens, synchronous, 50 requests).",
     "model": "codestral-2508",
     "provider": "mistral",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
-    "tokens_scaled_to_context": false,
+    "variant": "long",
+    "prompt_tokens": 5824,
+    "output_tokens": 728,
+    "tokens_scaled_to_context": true,
     "max_context_advertised": 131072,
     "context_effective": 131072,
     "context_provisional": false,
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 5824,
+        "output_tokens": 728
       }
     ],
     "profile": {

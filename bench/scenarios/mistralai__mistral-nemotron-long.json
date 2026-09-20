@@ -3,14 +3,14 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-mistralai__mistral-nemotron",
-    "description": "General-chat benchmark (standard): mistralai/mistral-nemotron on nvidia (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "name": "general-chat-mistralai__mistral-nemotron-long",
+    "description": "General-chat benchmark (long): mistralai/mistral-nemotron on nvidia (5824 prompt / 728 output tokens, synchronous, 50 requests).",
     "model": "mistralai/mistral-nemotron",
     "provider": "nvidia",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
-    "tokens_scaled_to_context": false,
+    "variant": "long",
+    "prompt_tokens": 5824,
+    "output_tokens": 728,
+    "tokens_scaled_to_context": true,
     "max_context_advertised": 131072,
     "context_effective": 131072,
     "context_provisional": false,
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 5824,
+        "output_tokens": 728
       }
     ],
     "profile": {

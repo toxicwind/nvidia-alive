@@ -3,13 +3,13 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-ministral-14b-2512",
-    "description": "General-chat benchmark (standard): ministral-14b-2512 on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "name": "general-chat-ministral-14b-2512-long",
+    "description": "General-chat benchmark (long): ministral-14b-2512 on mistral (8192 prompt / 1024 output tokens, synchronous, 50 requests).",
     "model": "ministral-14b-2512",
     "provider": "mistral",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
+    "variant": "long",
+    "prompt_tokens": 8192,
+    "output_tokens": 1024,
     "tokens_scaled_to_context": false,
     "max_context_advertised": 262144,
     "context_effective": 262144,
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 8192,
+        "output_tokens": 1024
       }
     ],
     "profile": {

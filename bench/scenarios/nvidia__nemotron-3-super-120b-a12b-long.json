@@ -3,13 +3,13 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-nvidia__nemotron-3-super-120b-a12b",
-    "description": "General-chat benchmark (standard): nvidia/nemotron-3-super-120b-a12b on nvidia (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "name": "general-chat-nvidia__nemotron-3-super-120b-a12b-long",
+    "description": "General-chat benchmark (long): nvidia/nemotron-3-super-120b-a12b on nvidia (8192 prompt / 1024 output tokens, synchronous, 50 requests).",
     "model": "nvidia/nemotron-3-super-120b-a12b",
     "provider": "nvidia",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
+    "variant": "long",
+    "prompt_tokens": 8192,
+    "output_tokens": 1024,
     "tokens_scaled_to_context": false,
     "max_context_advertised": 1048576,
     "context_effective": 262144,
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 8192,
+        "output_tokens": 1024
       }
     ],
     "profile": {

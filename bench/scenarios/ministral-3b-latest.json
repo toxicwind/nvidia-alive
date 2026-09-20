@@ -4,14 +4,20 @@
   ],
   "metadata": {
     "name": "general-chat-ministral-3b-latest",
-    "description": "General-chat benchmark: ministral-3b-latest on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "description": "General-chat benchmark (standard): ministral-3b-latest on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
     "model": "ministral-3b-latest",
     "provider": "mistral",
-    "max_context": null,
+    "variant": "standard",
     "prompt_tokens": 1024,
     "output_tokens": 512,
-    "tokenizer": "mistralai/Ministral-3B-Instruct-2410",
-    "tokenizer_verified": false
+    "tokens_scaled_to_context": false,
+    "max_context_advertised": 131072,
+    "context_effective": 131072,
+    "context_provisional": true,
+    "context_source": "inferred from mistralai/ministral-3b-2512 (OpenRouter 131072)",
+    "context_note": "-latest alias; assumed to track ministral-3b-2512 (128k, not 256k). Re-verify when pinning.",
+    "tokenizer": "mistralai/Ministral-3-3B-Instruct-2512",
+    "tokenizer_verified": true
   },
   "spec": {
     "backend": {

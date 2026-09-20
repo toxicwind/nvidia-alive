@@ -3,20 +3,20 @@
     {}
   ],
   "metadata": {
-    "name": "general-chat-ministral-14b-2512",
-    "description": "General-chat benchmark (standard): ministral-14b-2512 on mistral (1024 prompt / 512 output tokens, synchronous, 50 requests).",
-    "model": "ministral-14b-2512",
+    "name": "general-chat-mistral-code-latest-long",
+    "description": "General-chat benchmark (long): mistral-code-latest on mistral (8192 prompt / 1024 output tokens, synchronous, 50 requests).",
+    "model": "mistral-code-latest",
     "provider": "mistral",
-    "variant": "standard",
-    "prompt_tokens": 1024,
-    "output_tokens": 512,
+    "variant": "long",
+    "prompt_tokens": 8192,
+    "output_tokens": 1024,
     "tokens_scaled_to_context": false,
     "max_context_advertised": 262144,
     "context_effective": 262144,
-    "context_provisional": false,
-    "context_source": "https://openrouter.ai/api/v1/models (mistralai/ministral-14b-2512: 262144)",
-    "context_note": "OpenRouter per-ID value and Mistral docs ('Ministral 3 (3B/8B/14B) | 256k') agree.",
-    "tokenizer": "mistralai/Ministral-3-14B-Instruct-2512",
+    "context_provisional": true,
+    "context_source": "https://freellmapi.co/model/mistral-code ('mistral-code-latest | Context window 256K tokens')",
+    "context_note": "Third-party source (not Mistral docs). Treat as provisional until Mistral documents it.",
+    "tokenizer": "mistralai/Codestral-22B-v0.1",
     "tokenizer_verified": true
   },
   "spec": {
@@ -28,8 +28,8 @@
     "data": [
       {
         "kind": "synthetic_text",
-        "prompt_tokens": 1024,
-        "output_tokens": 512
+        "prompt_tokens": 8192,
+        "output_tokens": 1024
       }
     ],
     "profile": {

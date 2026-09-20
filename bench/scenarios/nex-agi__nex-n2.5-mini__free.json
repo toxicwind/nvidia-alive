@@ -4,13 +4,19 @@
   ],
   "metadata": {
     "name": "general-chat-nex-agi__nex-n2.5-mini__free",
-    "description": "General-chat benchmark: nex-agi/nex-n2.5-mini:free on openrouter (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "description": "General-chat benchmark (standard): nex-agi/nex-n2.5-mini:free on openrouter (1024 prompt / 512 output tokens, synchronous, 50 requests).",
     "model": "nex-agi/nex-n2.5-mini:free",
     "provider": "openrouter",
-    "max_context": null,
+    "variant": "standard",
     "prompt_tokens": 1024,
     "output_tokens": 512,
-    "tokenizer": "nex-agi/Nex-n2.5-mini",
+    "tokens_scaled_to_context": false,
+    "max_context_advertised": 262144,
+    "context_effective": 262144,
+    "context_provisional": false,
+    "context_source": "https://openrouter.ai/api/v1/models",
+    "context_note": null,
+    "tokenizer": "nex-agi/Nex-N2.5-mini",
     "tokenizer_verified": true
   },
   "spec": {
