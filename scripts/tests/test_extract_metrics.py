@@ -133,3 +133,27 @@ def test_markdown_and_csv_render(tmp_path):
     csv_text = em.to_csv(rows)
     assert "ttft_mean_ms" in csv_text.splitlines()[0]
     assert "beellama/exaone-4-0-1-2b-q4km" in csv_text
+
+
+def test_list_counts_and_mismatch_flag(tmp_path):
+    # fixture: aggregates (44/5/1/50) disagree with list lengths (2/3/1)
+    row = em.summarize(make_doc(tmp_path))
+    assert (row["list_successful"], row["list_errored"], row["list_incomplete"]) == (2, 3, 1)
+    assert row["count_mismatch"] is True
+    md = em.to_markdown([row])
+    assert "[lists: 2/3/1]" in md
+
+
+def test_matching_counts_no_mismatch(tmp_path):
+    p = make_doc(tmp_path)
+    doc = json.loads(p.read_text())
+    b = doc["benchmarks"][0]
+    b["requests"] = {
+        "successful": [_req("successful") for _ in range(44)],
+        "errored": [_req("errored") for _ in range(5)],
+        "incomplete": [_req("incomplete")],
+    }
+    p.write_text(json.dumps(doc))
+    row = em.summarize(p)
+    assert row["count_mismatch"] is False
+    assert "[lists:" not in em.to_markdown([row])

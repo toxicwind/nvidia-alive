@@ -115,9 +115,22 @@ def summarize(path: Path) -> dict:
         row["output_tps_overall"] = None
 
     # Exact errors + statuses from errored/incomplete request lists.
+    # Also record raw list lengths: they can disagree with aggregate totals.
     err_counter: Counter[str] = Counter()
     statuses: Counter[str] = Counter()
     reqs = b.get("requests") or {}
+    list_counts = {}
+    for bucket in ("successful", "errored", "incomplete"):
+        items = reqs.get(bucket) or []
+        list_counts[bucket] = len(items)
+    row["list_successful"] = list_counts["successful"]
+    row["list_errored"] = list_counts["errored"]
+    row["list_incomplete"] = list_counts["incomplete"]
+    row["count_mismatch"] = (
+        list_counts["successful"] != row["successful"]
+        or list_counts["errored"] != row["errored"]
+        or list_counts["incomplete"] != row["incomplete"]
+    )
     for bucket in ("errored", "incomplete"):
         items = reqs.get(bucket) or []
         for item in items:
@@ -157,6 +170,11 @@ def to_markdown(rows: list[dict]) -> str:
             f"({e['count']}x) {e['error'][:90]}" for e in r.get("errors", [])
         ) or "—"
         counts = f"{r.get('successful')}/{r.get('errored')}/{r.get('incomplete')}/{r.get('total')}"
+        list_counts = (
+            f"{r.get('list_successful')}/{r.get('list_errored')}/{r.get('list_incomplete')}"
+        )
+        if r.get("count_mismatch"):
+            counts += f" [lists: {list_counts}]"
         lines.append(
             "| " + " | ".join([
                 str(r.get("provider") or "—"),
@@ -178,6 +196,7 @@ def to_markdown(rows: list[dict]) -> str:
 CSV_FIELDS = [
     "file", "provider", "model", "benchmark_name",
     "successful", "errored", "incomplete", "total", "duration_s",
+    "list_successful", "list_errored", "list_incomplete", "count_mismatch",
     "ttft_mean_ms", "ttft_p50_ms", "itl_mean_ms", "itl_p50_ms",
     "out_tps_mean", "out_tps_p50", "req_per_s",
     "prompt_tokens_total", "output_tokens_total",
