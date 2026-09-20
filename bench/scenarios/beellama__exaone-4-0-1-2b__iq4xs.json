@@ -1,0 +1,47 @@
+{
+  "benchmarks": [
+    {}
+  ],
+  "metadata": {
+    "name": "general-chat-beellama__exaone-4-0-1-2b__iq4xs",
+    "description": "General-chat benchmark: beellama/exaone-4-0-1-2b:iq4xs on herd (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "model": "beellama/exaone-4-0-1-2b:iq4xs",
+    "provider": "herd",
+    "max_context": null,
+    "prompt_tokens": 1024,
+    "output_tokens": 512,
+    "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
+    "tokenizer_verified": true
+  },
+  "spec": {
+    "backend": {
+      "kind": "openai_http",
+      "target": "http://127.0.0.1:25100",
+      "request_format": "/v1/chat/completions"
+    },
+    "data": [
+      {
+        "kind": "synthetic_text",
+        "prompt_tokens": 1024,
+        "output_tokens": 512
+      }
+    ],
+    "profile": {
+      "kind": "synchronous"
+    },
+    "constraints": [
+      {
+        "kind": "max_requests",
+        "count": 50
+      },
+      {
+        "kind": "max_duration",
+        "seconds": 1800
+      },
+      {
+        "kind": "max_errors",
+        "count": 10
+      }
+    ]
+  }
+}

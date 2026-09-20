@@ -1,0 +1,53 @@
+{
+  "benchmarks": [
+    {}
+  ],
+  "metadata": {
+    "name": "general-chat-nvidia__nemotron-3.5-lightning__free",
+    "description": "General-chat benchmark (standard): nvidia/nemotron-3.5-lightning:free on openrouter (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "model": "nvidia/nemotron-3.5-lightning:free",
+    "provider": "openrouter",
+    "variant": "standard",
+    "prompt_tokens": 1024,
+    "output_tokens": 512,
+    "tokens_scaled_to_context": false,
+    "max_context_advertised": 1000000,
+    "context_effective": 1000000,
+    "context_provisional": false,
+    "context_source": "https://openrouter.ai/api/v1/models",
+    "context_note": "OpenRouter serving config caps at 1000000.",
+    "tokenizer": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-NVFP4",
+    "tokenizer_verified": true
+  },
+  "spec": {
+    "backend": {
+      "kind": "openai_http",
+      "target": "https://openrouter.ai/api/v1",
+      "request_format": "/v1/chat/completions"
+    },
+    "data": [
+      {
+        "kind": "synthetic_text",
+        "prompt_tokens": 1024,
+        "output_tokens": 512
+      }
+    ],
+    "profile": {
+      "kind": "synchronous"
+    },
+    "constraints": [
+      {
+        "kind": "max_requests",
+        "count": 50
+      },
+      {
+        "kind": "max_duration",
+        "seconds": 1800
+      },
+      {
+        "kind": "max_errors",
+        "count": 10
+      }
+    ]
+  }
+}

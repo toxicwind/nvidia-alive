@@ -94,6 +94,12 @@ while IFS="$(printf '\t')" read -r provider model tokenizer verified key_env tar
     echo "SKIP (no tokenizer): $model"
     skipped_tok=$((skipped_tok + 1)); continue
   fi
+  selected=$((selected + 1))
+  if [ "$LIST" -eq 1 ]; then
+    printf '%s  %s  tok=%s%s\n' "$provider" "$model" "$tokenizer" \
+      "$([ "$verified" = "1" ] || echo ' (provisional)')"
+    continue
+  fi
   key=""
   if [ -n "$key_env" ]; then
     key="${!key_env:-}"
@@ -102,14 +108,10 @@ while IFS="$(printf '\t')" read -r provider model tokenizer verified key_env tar
       skipped_key=$((skipped_key + 1)); continue
     fi
   fi
-  selected=$((selected + 1))
-  if [ "$LIST" -eq 1 ]; then
-    echo "$provider  $model  tok=$tokenizer"
-    continue
-  fi
 
-  scen="$SCEN_DIR/$(printf '%s' "$model" | tr '/:' '__').json"
-  safe="$(printf '%s' "$model" | tr '/:' '__')"
+  _slug="${model//\//__}"; _slug="${_slug//:/__}"
+  scen="$SCEN_DIR/${_slug}.json"
+  safe="$_slug"
   if [ ! -f "$scen" ]; then
     echo "SKIP (scenario missing): $model" >&2; failed=$((failed + 1)); continue
   fi

@@ -1,0 +1,53 @@
+{
+  "benchmarks": [
+    {}
+  ],
+  "metadata": {
+    "name": "general-chat-mistralai__mistral-nemotron",
+    "description": "General-chat benchmark (standard): mistralai/mistral-nemotron on nvidia (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "model": "mistralai/mistral-nemotron",
+    "provider": "nvidia",
+    "variant": "standard",
+    "prompt_tokens": 1024,
+    "output_tokens": 512,
+    "tokens_scaled_to_context": false,
+    "max_context_advertised": 131072,
+    "context_effective": 131072,
+    "context_provisional": false,
+    "context_source": "https://build.nvidia.com/mistralai/mistral-nemotron.md ('Context Length 128K')",
+    "context_note": null,
+    "tokenizer": "mistralai/Mistral-Nemo-Instruct-2407",
+    "tokenizer_verified": false
+  },
+  "spec": {
+    "backend": {
+      "kind": "openai_http",
+      "target": "https://integrate.api.nvidia.com",
+      "request_format": "/v1/chat/completions"
+    },
+    "data": [
+      {
+        "kind": "synthetic_text",
+        "prompt_tokens": 1024,
+        "output_tokens": 512
+      }
+    ],
+    "profile": {
+      "kind": "synchronous"
+    },
+    "constraints": [
+      {
+        "kind": "max_requests",
+        "count": 50
+      },
+      {
+        "kind": "max_duration",
+        "seconds": 1800
+      },
+      {
+        "kind": "max_errors",
+        "count": 10
+      }
+    ]
+  }
+}

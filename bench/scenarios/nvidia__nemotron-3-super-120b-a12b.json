@@ -1,0 +1,53 @@
+{
+  "benchmarks": [
+    {}
+  ],
+  "metadata": {
+    "name": "general-chat-nvidia__nemotron-3-super-120b-a12b",
+    "description": "General-chat benchmark (standard): nvidia/nemotron-3-super-120b-a12b on nvidia (1024 prompt / 512 output tokens, synchronous, 50 requests).",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "provider": "nvidia",
+    "variant": "standard",
+    "prompt_tokens": 1024,
+    "output_tokens": 512,
+    "tokens_scaled_to_context": false,
+    "max_context_advertised": 1048576,
+    "context_effective": 262144,
+    "context_provisional": false,
+    "context_source": "https://build.nvidia.com/nvidia/nemotron-3-super-120b-a12b.md ('Up to 1M tokens'; 'Context Length: Defaults to 256k above')",
+    "context_note": "Card says 'Up to 1M' but notes 'Context Length: Defaults to 256k' -- the 1M figure is family marketing; the served default is 256k unless explicitly configured. Size GuideLLM runs at 256k.",
+    "tokenizer": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16",
+    "tokenizer_verified": true
+  },
+  "spec": {
+    "backend": {
+      "kind": "openai_http",
+      "target": "https://integrate.api.nvidia.com",
+      "request_format": "/v1/chat/completions"
+    },
+    "data": [
+      {
+        "kind": "synthetic_text",
+        "prompt_tokens": 1024,
+        "output_tokens": 512
+      }
+    ],
+    "profile": {
+      "kind": "synchronous"
+    },
+    "constraints": [
+      {
+        "kind": "max_requests",
+        "count": 50
+      },
+      {
+        "kind": "max_duration",
+        "seconds": 1800
+      },
+      {
+        "kind": "max_errors",
+        "count": 10
+      }
+    ]
+  }
+}
