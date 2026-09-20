@@ -227,7 +227,7 @@
     },
     {
       "class": "general-chat",
-      "id": "beellama/exaone-4-0-1-2b:iq4xs",
+      "id": "beellama/exaone-4-0-1-2b-iq4xs",
       "provider": "herd",
       "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
       "tokenizer_note": "Upstream safetensors repo tokenizer for the GGUF quants (tokenizer_config.json HTTP 200).",
@@ -235,7 +235,7 @@
     },
     {
       "class": "general-chat",
-      "id": "beellama/exaone-4-0-1-2b:q4km",
+      "id": "beellama/exaone-4-0-1-2b-q4km",
       "provider": "herd",
       "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
       "tokenizer_note": "Upstream safetensors repo tokenizer for the GGUF quants.",
@@ -243,7 +243,7 @@
     },
     {
       "class": "general-chat",
-      "id": "beellama/exaone-4-0-1-2b:q5km",
+      "id": "beellama/exaone-4-0-1-2b-q5km",
       "provider": "herd",
       "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
       "tokenizer_note": "Upstream safetensors repo tokenizer for the GGUF quants.",
@@ -251,7 +251,7 @@
     },
     {
       "class": "general-chat",
-      "id": "beellama/exaone-4-0-1-2b:q6k",
+      "id": "beellama/exaone-4-0-1-2b-q6k",
       "provider": "herd",
       "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
       "tokenizer_note": "Upstream safetensors repo tokenizer for the GGUF quants.",
@@ -259,7 +259,7 @@
     },
     {
       "class": "general-chat",
-      "id": "beellama/exaone-4-0-1-2b:q80",
+      "id": "beellama/exaone-4-0-1-2b-q80",
       "provider": "herd",
       "tokenizer": "LGAI-EXAONE/EXAONE-4.0-1.2B",
       "tokenizer_note": "Upstream safetensors repo tokenizer for the GGUF quants.",
@@ -271,28 +271,33 @@
       "key_env": "GEMINI_API_KEY",
       "note": "Google OpenAI-compatible endpoint. Key variants GEMINI_API_KEY_1..5 also exist; primary first.",
       "request_format": "/v1/chat/completions",
-      "target": "https://generativelanguage.googleapis.com/v1beta/openai"
+      "target": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "validate": "https://generativelanguage.googleapis.com/v1beta/openai/models"
     },
     "herd": {
       "key_env": null,
       "note": "Local herd on the bench host (yote). No key; target is loopback.",
       "request_format": "/v1/chat/completions",
-      "target": "http://127.0.0.1:25100"
+      "target": "http://127.0.0.1:25100",
+      "validate": "/v1/models"
     },
     "mistral": {
       "key_env": "MISTRAL_API_KEY",
       "request_format": "/v1/chat/completions",
-      "target": "https://api.mistral.ai"
+      "target": "https://api.mistral.ai",
+      "validate": "/v1/models"
     },
     "nvidia": {
       "key_env": "NVIDIA_API_KEY",
       "request_format": "/v1/chat/completions",
-      "target": "https://integrate.api.nvidia.com"
+      "target": "https://integrate.api.nvidia.com",
+      "validate": "/v1/models"
     },
     "openrouter": {
       "key_env": "OPENROUTER_API_KEY_1",
       "request_format": "/v1/chat/completions",
-      "target": "https://openrouter.ai/api/v1"
+      "target": "https://openrouter.ai/api/v1",
+      "validate": "/v1/models"
     }
   },
   "source": "alive/*.txt (endpoint-alive verdicts, 2026-09-20 sweep)"
