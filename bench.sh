@@ -66,7 +66,7 @@ command -v python3 >/dev/null || { echo "python3 required" >&2; exit 2; }
 # models-bench.json and context-map.json when it lands).
 python3 "$DIR/scripts/gen-scenarios.py" >&2 || exit 2
 
-# Emit: provider\x1fmodel_id\x1ftokenizer\x1fverified(0/1)\x1fkey_env\x1ftarget\x1fvalidate
+# Emit: provider\x1fmodel_id\x1ftokenizer\x1fverified(0/1)\x1fkey_env\x1ftarget\x1fvalidate\x1frequest_path\x1fstrict_compat(0/1)
 model_rows() {
   python3 - "$MODELS_JSON" <<'EOF'
 import json, sys
@@ -80,6 +80,8 @@ for m in bench["models"]:
         p.get("key_env") or "",
         p["target"],
         p.get("validate") or "",
+        p.get("request_path") or "/v1/chat/completions",
+        "1" if p.get("strict_compat") else "0",
     ]))
 EOF
 }
@@ -88,7 +90,7 @@ selected=0; ran=0; failed=0; skipped_key=0; skipped_tok=0
 # NOTE: \x1f (unit separator) is the field delimiter, NOT tab: tab is IFS
 # whitespace, so read would collapse consecutive tabs and swallow empty
 # fields (this silently broke keyless providers like herd).
-while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env target validate; do
+while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env target validate request_path strict_compat; do
   [ -z "$model" ] && continue
   if [ -n "$PROVIDER" ] && [ "$provider" != "$PROVIDER" ]; then continue; fi
   if [ -n "$FILTER" ]; then
@@ -132,7 +134,10 @@ while IFS="$(printf '\x1f')" read -r provider model tokenizer verified key_env t
     echo "SKIP (scenario missing): $model" >&2; failed=$((failed + 1)); continue
   fi
 
-  backend="kind=openai_http,target=$target,model=$model,request_format=/v1/chat/completions"
+  backend="kind=openai_http,target=$target,model=$model,request_format=$request_path"
+  if [ "$strict_compat" = "1" ]; then
+    backend="$backend,openai_strict_compat=true"
+  fi
   if [ -n "$validate" ]; then
     backend="$backend,validate_backend=$validate"
   fi

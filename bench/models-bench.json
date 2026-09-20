@@ -102,7 +102,7 @@
       "id": "mistralai/mistral-nemotron",
       "provider": "nvidia",
       "tokenizer": "mistralai/Mistral-Nemo-Instruct-2407",
-      "tokenizer_note": "Repo ungated, tokenizer.json verified live 2026-09-20. NIM card names no HF repo; family match (Mistral NeMo 12B, Tekken) \u2014 provisional until canonical.",
+      "tokenizer_note": "Repo ungated, tokenizer.json verified live 2026-09-20. NIM card names no HF repo; family match (Mistral NeMo 12B, Tekken) — provisional until canonical.",
       "tokenizer_verified": true
     },
     {
@@ -272,7 +272,9 @@
       "note": "Google OpenAI-compatible endpoint. Key variants GEMINI_API_KEY_1..5 also exist; primary first.",
       "request_format": "/v1/chat/completions",
       "target": "https://generativelanguage.googleapis.com/v1beta/openai",
-      "validate": "https://generativelanguage.googleapis.com/v1beta/openai/models"
+      "validate": "https://generativelanguage.googleapis.com/v1beta/openai/models",
+      "request_path": "/chat/completions",
+      "strict_compat": true
     },
     "herd": {
       "key_env": null,
@@ -285,7 +287,8 @@
       "key_env": "MISTRAL_API_KEY",
       "request_format": "/v1/chat/completions",
       "target": "https://api.mistral.ai",
-      "validate": "/v1/models"
+      "validate": "/v1/models",
+      "strict_compat": true
     },
     "nvidia": {
       "key_env": "NVIDIA_API_KEY",

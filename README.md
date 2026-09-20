@@ -27,6 +27,11 @@ sent to a real completions endpoint, never from a catalog listing.
 - `scripts/kimi-k3-timing.py`, `scripts/k3-runner.sh`,
   `scripts/pcap-analyze.py` — the packet-level latency investigation that
   proved the 118–159 s "latency" is server-side queue wait.
+- `scripts/extract-metrics.py` — GuideLLM JSON → Markdown/JSON/CSV benchmark
+  summaries: ok/errored/incomplete/total, duration, TTFT/ITL mean+p50,
+  output tok/s mean+p50, request rate, token totals, exact deduplicated
+  errors. Reports both GuideLLM aggregate totals and raw request-list
+  lengths (they can disagree). Tests: `scripts/tests/test_extract_metrics.py`.
 - `scripts/kimi-live-probe.py`, `scripts/kimi-k3-reprobe.py`,
   `scripts/kimi-provider-audit.py`, `scripts/provider-audit.py` —
   earlier per-provider audit passes.
@@ -43,7 +48,9 @@ sent to a real completions endpoint, never from a catalog listing.
 
 ## Solved findings
 
-See [`docs/FINDINGS.md`](docs/FINDINGS.md):
+See [`docs/FINDINGS.md`](docs/FINDINGS.md) and
+[`docs/BENCH-FINDINGS.md`](docs/BENCH-FINDINGS.md) (GuideLLM benchmark
+results, Mistral 422 / Gemini URL root causes, metric extractor usage):
 
 1. **kimi-k2.6 404 = per-account entitlement gating** (NVCF function
    `23d4f03a-b8a6-4adb-a183-7daa083a09cc`, "Not found for account") —
