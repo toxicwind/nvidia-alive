@@ -70,7 +70,7 @@ for keyname in ["OPENROUTER_API_KEY_1", "OPENROUTER_API_KEY"]:
                      "https://openrouter.ai/api/v1/chat/completions",
                      {"Authorization": "Bearer " + key,
                       "Content-Type": "application/json",
-                      "HTTP-Referer": "https://sovereign.local",
+                      "HTTP-Referer": "https://estate-scripts.local",
                       "X-Title": "kimi-live-probe"},
                      m))
 

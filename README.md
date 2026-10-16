@@ -124,6 +124,6 @@ python3 scripts/prober.py      # full provider × key × model sweep
 ## Estate docs
 
 - **Fleet knowledgebase** — the canonical estate map, active crews, repo index, standing rules, and docs index (source of truth; this README does not duplicate it):
-  <https://github.com/toxicwind/sovereign-projects/blob/main/docs/fleet-knowledgebase.md>
+  <https://github.com/toxicwind/estate-scripts-projects/blob/main/docs/fleet-knowledgebase.md>
 - **Master README** — the doc-graph root:
-  <https://github.com/toxicwind/sovereign-projects/blob/main/README.md>
+  <https://github.com/toxicwind/estate-scripts-projects/blob/main/README.md>

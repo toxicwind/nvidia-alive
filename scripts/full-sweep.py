@@ -150,7 +150,7 @@ def probe_pollinations(model):
             "reply": text, "err_type": etype, "err": edetail}
 
 
-OR_EXTRA = {"HTTP-Referer": "https://sovereign.local",
+OR_EXTRA = {"HTTP-Referer": "https://estate-scripts.local",
             "X-Title": "full-sweep"}
 
 # (provider, list_url, list_headers, key_aliases, probe_kind, probe_base)
