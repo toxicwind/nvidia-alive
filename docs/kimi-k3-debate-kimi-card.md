@@ -1,6 +1,6 @@
 # Kimi-K3 / NIM debate — kimi-card position (pro-thesis)
 
-**Thesis (Chris):** every NIM model has a specific model card on build.nvidia.com AND a
+**Thesis (the Architect):** every NIM model has a specific model card on build.nvidia.com AND a
 HuggingFace repo; "kimi-k3 is broken" reports are mostly people missing this — wrong IDs,
 wrong params, wrong endpoints — not a dead model.
 

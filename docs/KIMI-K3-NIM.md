@@ -1,6 +1,6 @@
 # kimi-k3 on NVIDIA NIM: investigation, debate, and plan
 
-Date: 2026-09-20. Question from Chris: every NIM model has a specific model
+Date: 2026-09-20. Question from the Architect: every NIM model has a specific model
 card on build.nvidia.com AND HuggingFace, nobody seems to realize it, we made
 kimi-k3 work on herd, and people online think kimi-k3 is broken for NIM — dig
 deeper, write it up, run a debate.
@@ -15,7 +15,7 @@ deeper, write it up, run a debate.
   for the same request, burst 429s (~2 req/min free tier), per-account
   provisioning 404s. Our prober's TimeoutError was very likely a methodology
   artifact (25s ceiling vs 46s documented latency).
-- **Chris's model-card thesis checked out (~65% of "broken" reports):** NIM
+- **the Architect's model-card thesis checked out (~65% of "broken" reports):** NIM
   id ≠ HF id (`moonshotai/kimi-k3` vs `moonshotai/Kimi-K3` — this is exactly
   what broke our guidellm smoke test), immutable penalties 400 if sent,
   client-side endpoint-path bugs (OpenClaw #8319: direct curl 200s while the
@@ -111,7 +111,7 @@ of real pain:
 Plus our own contribution: the prober's 25s ceiling + 1s rate gate vs a
 46s-latency model manufactured a TimeoutError we reported as signal.
 
-**The card thesis, refined:** Chris is right that every model has a NIM card
+**The card thesis, refined:** the Architect is right that every model has a NIM card
 and an HF card and nobody checks. The debate added the other half: **the
 card is the request contract, the live sweep is the liveness signal, and
 neither is sufficient alone** — five 410-retired models keep 200 cards, and

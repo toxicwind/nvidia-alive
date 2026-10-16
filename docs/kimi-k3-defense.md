@@ -106,7 +106,7 @@ Run on yote (`/home/toxic/nvidia-alive/`), NVIDIA_API_KEY from ~/.secrets
 
 ## Note on the model-card point
 
-Chris is right that every model has a NIM model card AND a HuggingFace card
+the Architect is right that every model has a NIM model card AND a HuggingFace card
 and the confusion is rampant — but with a caveat from Tibbee's README: build
 cards return HTTP 200 even for 410-retired models, so "the live aliveness
 sweep — not the card — is the liveness signal." Card = necessary (official

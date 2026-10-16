@@ -131,4 +131,4 @@ python3 scripts/tests/test_extract_metrics.py               # 5 tests
 command line, so raw keys are visible to any local user via `ps` while a
 benchmark runs. Keys must move to an env-var/file reference instead of
 command-line embedding. (Flagged 2026-09-20; not changed yet — credential
-handling is Chris's call.)
+handling is the Architect's call.)
