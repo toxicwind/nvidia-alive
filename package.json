@@ -1,0 +1,28 @@
+{
+  "name": "nvidia-alive",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Live endpoint auditing for NVIDIA NIM — and every provider in the herd. Every availability verdict here comes from a real request sent to a real completions endpoint, never from a catalog listing.",
+  "author": "NVIDIA",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "nvidia-alive": "./scripts/alive.ts"
+  },
+  "scripts": {
+    "dev": "bun --hot run scripts/alive.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "biome lint .",
+    "fmt": "biome format . --write",
+    "build": "bun build scripts/alive.ts --target bun --outdir dist"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@types/bun": "latest",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
